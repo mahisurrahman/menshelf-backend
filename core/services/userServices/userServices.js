@@ -564,7 +564,7 @@ async updateUserPasswordSrvc(body, params) {
 
   async updateUserInformation(body, params) {
     try {
-      console.log("Body data", body);
+      console.log("Body data", params.id);
       let userId = params.id;
       let updateInfo = body;
       let findUsers = null;
@@ -728,6 +728,98 @@ async updateUserPasswordSrvc(body, params) {
               status: 409,
               error: true,
               message: "User Phone Number didn't Changed",
+              data: null,
+            };
+          }
+        }
+
+        if (updateInfo.shippingCountry) {
+          const result = await customerModel.updateOne(
+            { userId: userId },
+            { shippingCountry: updateInfo.shippingCountry },
+            { new: true }
+          );
+          if (result) {
+            return {
+              status: 200,
+              error: false,
+              message: "User Shipping Country Changed",
+              data: result,
+            };
+          } else {
+            return {
+              status: 409,
+              error: true,
+              message: "User Shipping Country didn't Changed",
+              data: null,
+            };
+          }
+        }
+
+        if (updateInfo.shippingState) {
+          const result = await customerModel.updateOne(
+            { userId: userId },
+            { shippingState: updateInfo.shippingState },
+            { new: true }
+          );
+          if (result) {
+            return {
+              status: 200,
+              error: false,
+              message: "User Shipping State Changed",
+              data: result,
+            };
+          } else {
+            return {
+              status: 409,
+              error: true,
+              message: "User Shipping State didn't Changed",
+              data: null,
+            };
+          }
+        }
+
+        if (updateInfo.shippingAddress) {
+          const result = await customerModel.updateOne(
+            { userId: userId },
+            { shippingAddress: updateInfo.shippingAddress },
+            { new: true }
+          );
+          if (result) {
+            return {
+              status: 200,
+              error: false,
+              message: "User Shipping Address Changed",
+              data: result,
+            };
+          } else {
+            return {
+              status: 409,
+              error: true,
+              message: "User Shipping Address didn't Changed",
+              data: null,
+            };
+          }
+        }
+
+        if (updateInfo.shippingPostalCode) {
+          const result = await customerModel.updateOne(
+            { userId: userId },
+            { shippingPostalCode: updateInfo.shippingPostalCode },
+            { new: true }
+          );
+          if (result) {
+            return {
+              status: 200,
+              error: false,
+              message: "User Shipping Postal Code Changed",
+              data: result,
+            };
+          } else {
+            return {
+              status: 409,
+              error: true,
+              message: "User Shipping Postal Code didn't Changed",
               data: null,
             };
           }
